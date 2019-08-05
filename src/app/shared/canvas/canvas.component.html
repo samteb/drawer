@@ -1,0 +1,16 @@
+<div class="canvas">
+  <div
+    class="shape"
+    *ngFor="let shape of shapes"
+    [ngClass]="shape.name"
+    [cdkDragDisabled]="viewMode"
+    [cdkDragData]="shape"
+    [cdkDragFreeDragPosition]="shape.position"
+    (cdkDragMoved)="onDrag($event)"
+    (cdkDragEnded)="dragEnd($event)"
+    cdkDragBoundary=".canvas"
+    cdkDrag
+ >
+    <app-shape [name]="shape.name"></app-shape>
+  </div>
+</div>

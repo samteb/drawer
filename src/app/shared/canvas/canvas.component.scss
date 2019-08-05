@@ -1,0 +1,12 @@
+.canvas {
+  background-color: lightgrey;
+  height: 100%;
+  .shape {
+    display: inline-block;
+    margin: 0;
+    cursor: move;
+    &.cdk-drag-disabled {
+      cursor: default;
+    }
+  }
+}

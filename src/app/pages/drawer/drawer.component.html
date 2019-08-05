@@ -1,0 +1,19 @@
+<div class="boundary">
+  <div
+    class="sidebar"
+    cdkDropList
+    cdkDropListSortingDisabled
+  >
+    <div
+      class="shape"
+      *ngFor="let shape of shapesList"
+      [cdkDragData]="shape"
+      (cdkDragDropped)="dragDrop($event)"
+      cdkDragBoundary=".boundary"
+      cdkDrag
+    >
+      <app-shape [name]="shape"></app-shape>
+    </div>
+  </div>
+  <app-canvas [viewMode]="false" [(shapes)]="shapesDiagram"></app-canvas>
+</div>

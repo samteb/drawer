@@ -1,0 +1,42 @@
+.main-container {
+  display: block;
+  min-width: 560px;
+  height: 100%;
+  .top-bar {
+    height: 80px;
+    border-bottom: 1px solid grey;
+    .title {
+      float: left;
+      font-size: 25px;
+      font-weight: 600;
+      font-family: sans-serif;
+    }
+    .buttons {
+      float: right;
+      padding: 20px 10px;
+      .btn {
+        width: 120px;
+        height: 40px;
+        border: 1px solid grey;
+        border-radius: 3px;
+        font-size: 14px;
+        margin: 0 10px;
+        cursor: pointer;
+        color: black;
+        &:hover, &:disabled {
+          opacity: 0.8;
+        }
+        &:disabled:hover {
+          cursor: default;
+        }
+      }
+      .btn-publish {
+        background-color: coral;
+        color: #fff;
+      }
+    }
+  }
+  .page-container {
+    height: calc(100% - 81px);
+  }
+}

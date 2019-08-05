@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    drawer-db:
+        image: mongo:3.6
+        container_name: drawer-db
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+        hostname: drawer-db
+        logging:
+            driver: json-file
+            options:
+                max-size: 10m
+        volumes:
+            - /data/db
+        ports:
+            - 27017:27017
+        command: >
+            bash -c "
+                mongod \
+                    --bind_ip_all \
+                    --storageEngine wiredTiger \
+                    --dbpath /data/db \
+                    --port 27017 \
+            "

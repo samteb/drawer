@@ -1,0 +1,20 @@
+.boundary {
+  height: 100%;
+  .sidebar {
+    float: left;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    border-right: 1px solid grey;
+    .shape {
+      margin: 25px 75px;
+      cursor: move;
+    }
+  }
+
+  app-canvas {
+    float: left;
+    width: calc(100% - 251px);
+    height: 100%;
+  }
+}
