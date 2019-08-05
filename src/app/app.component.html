@@ -1,6 +1,6 @@
 <div class="main-container">
   <div class="top-bar">
-    <div class="title">{{ activatedRoute.snapshot.data.title }}</div>
+    <div class="title">{{ isViewMode ? 'Diagram drawer' : 'Diagram viewer' }}</div>
     <div *ngIf="!isViewMode" class="buttons">
       <button class="btn btn-save" *ngIf="diagram._id" routerLink="/diagram/{{ diagram._id }}">Viewer</button>
       <button class="btn btn-save" [disabled]="!diagram.shapes.length" (click)="save()">{{ diagram._id ? 'Edit' : 'Save' }}</button>

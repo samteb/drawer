@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Diagram } from './models';
@@ -21,10 +20,9 @@ export class AppComponent {
   isViewMode: boolean;
   constructor(
     private http: HttpClient,
-    private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private apiService: ApiService,
-    private drawerService: DrawerService,
+    private drawerService: DrawerService
   ) {
     drawerService.shape$.subscribe(shape => this.diagram.shapes.push(shape));
     drawerService.viewerMode$.subscribe(isViewMode => this.isViewMode = isViewMode);
