@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const logger = require('morgan');
 const cors = require('cors');
+const path = require('path');
 
 const config = require('./config');
 const diagramsRouter = require('./routes/diagrams');
@@ -18,7 +19,7 @@ app.use(
   cors({
     credentials: true,
     origin: (origin, callback) => {
-      if (!origin || [ config.drawer, config.api ].includes(origin)) {
+      if (!origin || [ config.drawer, config.server ].includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed to send request from origin.'));
@@ -48,7 +49,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(express.static(__dirname + '/../dist/drawer'));
+
 app.use('/api', diagramsRouter);
+
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname + '/../dist/drawer/index.html')));
 
 app.set('port', 3000);
 

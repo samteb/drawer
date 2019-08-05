@@ -13,7 +13,7 @@ const ConnectionOptions = {
     connectTimeoutMS: 0
 };
 
-const DbConnection = mongoose.createConnection(config.db, ConnectionOptions);
+const DbConnection = mongoose.createConnection(config.database, ConnectionOptions);
 
 module.exports = {
     connection: DbConnection,
