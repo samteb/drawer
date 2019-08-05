@@ -55,8 +55,6 @@ app.use('/api', diagramsRouter);
 
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname + '/../dist/drawer/index.html')));
 
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 
-app.listen(app.get('port'), '0.0.0.0', () => {
-  console.log(new Date() + ' Listening on port ' + app.get('port'));
-});
+app.listen(app.get('port'), `Listening on port ${app.get('port')}`);
