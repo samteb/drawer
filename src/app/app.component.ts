@@ -18,7 +18,7 @@ export class AppComponent {
     published: false,
     shapes: []
   };
-  isViewMode = false;
+  isViewMode: boolean;
   constructor(
     private http: HttpClient,
     private activatedRoute: ActivatedRoute,
@@ -40,7 +40,7 @@ export class AppComponent {
       this.apiService.editDiagram(this.diagram).subscribe(
         diagram => {
           this.diagram.shapes = diagram.shapes;
-          this.notify('Your diagram has been edited successfully!');
+          this.notify('Your diagram has been successfully edited!');
         },
         error =>  this.notify(error.message)
       );
@@ -48,7 +48,7 @@ export class AppComponent {
       this.apiService.saveDiagram(this.diagram.shapes).subscribe(
         diagram => {
           this.diagram._id = diagram._id;
-          this.notify('Your diagram has been saved successfully!');
+          this.notify('Your diagram has been successfully saved!');
         },
         error => this.notify(error.message)
       );
@@ -61,7 +61,8 @@ export class AppComponent {
     this.apiService.publishDiagram(this.diagram._id).subscribe(
       diagram => {
         this.diagram.published = diagram.published;
-        this.notify('Your diagram has been published successfully!');
+        const result = diagram.published ? 'published' : 'unpublished';
+        this.notify(`Your diagram has been successfully ${result}!`);
       },
       error => this.notify(error.message)
     );
