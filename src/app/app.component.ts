@@ -25,7 +25,13 @@ export class AppComponent {
     private drawerService: DrawerService
   ) {
     drawerService.shape$.subscribe(shape => this.diagram.shapes.push(shape));
-    drawerService.viewerMode$.subscribe(isViewMode => this.isViewMode = isViewMode);
+    drawerService.viewerMode$.subscribe(isViewMode => {
+        this.isViewMode = isViewMode;
+        this.diagram = {
+            published: false,
+            shapes: []
+        };
+    });
   }
   notify(message: string) {
     this.snackBar.open(message, null, { duration: 5000 });
