@@ -41,4 +41,5 @@ import { ShapeComponent } from './shared/shape/shape.component';
     AppComponent
   ]
 })
-export class AppModule { }
+
+export class AppModule {}

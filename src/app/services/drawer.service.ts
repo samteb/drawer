@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Shape } from '../models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DrawerService {
   private shapeSource = new Subject<Shape>();
   private viewerModeSource = new Subject<boolean>();

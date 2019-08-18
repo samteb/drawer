@@ -3,7 +3,7 @@ import { Shapes } from '../../models';
 
 @Component({
   selector: 'app-shape',
-  templateUrl: './shape.component.html',
+  templateUrl: './shape.component.svg',
   styleUrls: ['./shape.component.scss']
 })
 
