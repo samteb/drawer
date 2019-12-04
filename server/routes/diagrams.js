@@ -5,6 +5,12 @@ const router = express.Router();
 
 const Diagram = require('../models/diagram');
 
+function getDiagramObjectWithoutSessionID(diagramModel) {
+  const diagramObject = diagramModel.toObject();
+  delete diagramObject.sessionID;
+  return diagramObject;
+}
+
 router.get('/diagrams/:id', async (req, res, next) => {
   try {
     const diagram = await Diagram.DiagramModel.findById(req.params.id);
@@ -14,8 +20,7 @@ router.get('/diagrams/:id', async (req, res, next) => {
     if (!diagram.published && req.sessionID !== diagram.sessionID) {
       return res.status(401).send('You are not allowed to access this diagram!');
     }
-    delete diagram.sessionID;
-    return res.json(diagram);
+    return res.json(getDiagramObjectWithoutSessionID(diagram));
   } catch (error) {
     return next(error);
   }
@@ -24,8 +29,7 @@ router.get('/diagrams/:id', async (req, res, next) => {
 router.post('/diagrams', async (req, res, next) => {
   try {
     const diagram = await Diagram.DiagramModel.create({ sessionID: req.sessionID, shapes: req.body });
-    delete diagram.sessionID;
-    return res.json(diagram);
+    return res.json(getDiagramObjectWithoutSessionID(diagram));
   } catch (error) {
     return next(error);
   }
@@ -39,8 +43,7 @@ router.put('/diagrams/:id', async (req, res, next) => {
     }
     diagram.shapes = req.body.shapes;
     diagram.save();
-    delete diagram.sessionID;
-    return res.json(diagram);
+    return res.json(getDiagramObjectWithoutSessionID(diagram));
   } catch (error) {
     return next(error);
   }
@@ -54,8 +57,7 @@ router.put('/diagrams/publish/:id', async (req, res, next) => {
     }
     diagram.published = !diagram.published;
     diagram.save();
-    delete diagram.sessionID;
-    return res.json(diagram);
+    return res.json(getDiagramObjectWithoutSessionID(diagram));
   } catch (error) {
     return next(error);
   }

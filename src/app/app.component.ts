@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { StoreService } from './services/store.service';
 import { ApiService } from './services/api.service';
 import { Diagram } from './models';
-import {Router, ActivatedRoute, NavigationEnd, RouterEvent} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-root',
