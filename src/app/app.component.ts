@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
         error =>  this.notify(error.message)
       );
     } else {
-      this.apiService.saveDiagram(this.diagram.shapes).subscribe(
+      this.apiService.saveDiagram(this.diagram).subscribe(
         diagram => {
             this.storeService.setDiagram(diagram);
             this.notify('Your diagram has been successfully saved!');
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     }
     this.apiService.publishDiagram(this.diagram._id).subscribe(
       diagram => {
-        this.diagram.published = diagram.published;
+        this.storeService.setDiagram(diagram);
         const result = diagram.published ? 'published' : 'unpublished';
         this.notify(`Your diagram has been successfully ${result}!`);
       },

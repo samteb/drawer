@@ -28,7 +28,7 @@ router.get('/diagrams/:id', async (req, res, next) => {
 
 router.post('/diagrams', async (req, res, next) => {
   try {
-    const diagram = await Diagram.DiagramModel.create({ sessionID: req.sessionID, shapes: req.body });
+    const diagram = await Diagram.DiagramModel.create({ ...req.body, sessionID: req.sessionID });
     return res.json(getDiagramObjectWithoutSessionID(diagram));
   } catch (error) {
     return next(error);

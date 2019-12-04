@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Diagram, Shape } from '../models';
+import { Diagram } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -14,8 +14,8 @@ export class ApiService {
     );
   }
 
-  saveDiagram(shapes: Shape[]): Observable<Diagram> {
-    return this.http.post<Diagram>('/diagrams', shapes).pipe(
+  saveDiagram(diagram: Diagram): Observable<Diagram> {
+    return this.http.post<Diagram>('/diagrams', diagram).pipe(
         catchError(error => throwError(error))
     );
   }
