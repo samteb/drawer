@@ -1,7 +1,7 @@
 <div class="main-container">
   <div class="top-bar">
     <div class="title">{{ titleText }}</div>
-    <div class="buttons" *ngIf="!viewMode && diagram">
+    <div class="buttons" *ngIf="!(storeService.viewMode$ | async) && diagram">
       <button class="btn" *ngIf="diagram._id" routerLink="/diagram/{{ diagram._id }}">Viewer</button>
       <button class="btn" [disabled]="!diagram.shapes.length" (click)="save()">{{ btnActionText(diagram) }}</button>
       <button class="btn btn-publish" [disabled]="!diagram.shapes.length || !diagram._id" (click)="publish()">{{ btnPublishText(diagram) }}</button>

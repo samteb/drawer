@@ -15,7 +15,6 @@ import {Router, ActivatedRoute, NavigationEnd, RouterEvent} from '@angular/route
 export class AppComponent implements OnInit {
   titleText = '';
   diagram: Diagram;
-  viewMode: boolean;
 
   constructor(
     private router: Router,
@@ -27,7 +26,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
       this.storeService.diagram$.subscribe(diagram => this.diagram = diagram);
-      this.storeService.viewMode$.subscribe(viewMode => this.viewMode = viewMode);
       this.router.events.pipe(
           filter((event: RouterEvent) => event instanceof NavigationEnd),
           map(() => this.route.root.firstChild.snapshot.data)
