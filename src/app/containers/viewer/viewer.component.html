@@ -1,0 +1,6 @@
+<app-canvas
+    *ngIf="!error.length"
+    [viewMode]="storeService.viewMode$ | async"
+    [shapes]="(storeService.diagram$ | async)?.shapes">
+</app-canvas>
+<div class="private" *ngIf="error.length">{{ error }}</div>

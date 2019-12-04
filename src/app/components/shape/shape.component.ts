@@ -3,13 +3,12 @@ import { Shapes } from '../../models';
 
 @Component({
   selector: 'app-shape',
-  templateUrl: './shape.component.svg',
-  styleUrls: ['./shape.component.scss']
+  templateUrl: './shape.component.svg'
 })
 
 export class ShapeComponent {
-  shapes = Shapes;
   @Input() name: Shapes;
+  shapes = Shapes;
 
   constructor() {}
 }

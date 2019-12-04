@@ -7,7 +7,8 @@ mongoose.Promise = Promise;
 
 const ConnectionOptions = {
     promiseLibrary: Promise,
-    useMongoClient: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     poolSize: 20,
     socketTimeoutMS: 0,
     connectTimeoutMS: 0

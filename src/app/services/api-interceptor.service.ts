@@ -3,11 +3,14 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export class ApiInterceptorService implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const apiReq = req.clone({
+  intercept(
+      req: HttpRequest<any>,
+      next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const newRequest = req.clone({
       url: `${environment.serverBaseUrl}${req.url}`,
       withCredentials: true
     });
-    return next.handle(apiReq);
+    return next.handle(newRequest);
   }
 }

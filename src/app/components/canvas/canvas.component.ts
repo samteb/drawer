@@ -11,7 +11,6 @@ import { Shape } from '../../models';
 export class CanvasComponent {
   @Input() viewMode = false;
   @Input() shapes: Shape[];
-  @Output() shapesChange = new EventEmitter<Shape[]>();
 
   dragEnd(event: CdkDragEnd<Shape>) {
     event.source.data.position = event.source.getFreeDragPosition();

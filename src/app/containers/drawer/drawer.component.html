@@ -15,5 +15,8 @@
       <app-shape [name]="shape"></app-shape>
     </div>
   </div>
-  <app-canvas [viewMode]="false" [(shapes)]="shapesDiagram"></app-canvas>
+  <app-canvas
+    [viewMode]="storeService.viewMode$ | async"
+    [shapes]="diagram.shapes">
+  </app-canvas>
 </div>

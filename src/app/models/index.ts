@@ -19,3 +19,8 @@ export interface Diagram {
   published: boolean;
   shapes: Shape[];
 }
+
+export interface DiagramResolve {
+  diagram: Diagram;
+  error?: string;
+}

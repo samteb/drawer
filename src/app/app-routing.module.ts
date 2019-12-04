@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DrawerComponent } from './pages/drawer/drawer.component';
-import { ViewerComponent } from './pages/viewer/viewer.component';
+import { DrawerComponent } from './containers/drawer/drawer.component';
+import { ViewerComponent } from './containers/viewer/viewer.component';
+import { ViewerResolve } from './containers/viewer/viewer.resolve';
 
 const routes: Routes = [
   {
@@ -16,13 +17,16 @@ const routes: Routes = [
     component: ViewerComponent,
     data: {
       title: 'Diagram viewer'
+    },
+    resolve: {
+      diagram: ViewerResolve
     }
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
 
 export class AppRoutingModule {}

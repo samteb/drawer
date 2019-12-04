@@ -1,49 +1,46 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Diagram } from './models';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { StoreService } from './services/store.service';
 import { ApiService } from './services/api.service';
-import { DrawerService } from './services/drawer.service';
+import { Diagram } from './models';
+import {Router, ActivatedRoute, NavigationEnd, RouterEvent} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  providers: [ DrawerService ]
+  styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
-  diagram: Diagram = {
-    published: false,
-    shapes: []
-  };
-  isViewMode: boolean;
+export class AppComponent implements OnInit {
+  titleText = '';
+  diagram: Diagram;
+  viewMode: boolean;
+
   constructor(
-    private http: HttpClient,
-    private snackBar: MatSnackBar,
+    private router: Router,
+    private route: ActivatedRoute,
     private apiService: ApiService,
-    private drawerService: DrawerService
-  ) {
-    drawerService.shape$.subscribe(shape => this.diagram.shapes.push(shape));
-    drawerService.viewerMode$.subscribe(isViewMode => {
-        this.isViewMode = isViewMode;
-        this.diagram = {
-            published: false,
-            shapes: []
-        };
-    });
+    private storeService: StoreService,
+    private snackBar: MatSnackBar
+  ) {}
+
+  ngOnInit(): void {
+      this.storeService.diagram$.subscribe(diagram => this.diagram = diagram);
+      this.storeService.viewMode$.subscribe(viewMode => this.viewMode = viewMode);
+      this.router.events.pipe(
+          filter((event: RouterEvent) => event instanceof NavigationEnd),
+          map(() => this.route.root.firstChild.snapshot.data)
+      ).subscribe(data => this.titleText = data.title);
   }
-  notify(message: string) {
-    this.snackBar.open(message, null, { duration: 5000 });
-  }
-  save() {
+  save(): void {
     if (!this.diagram.shapes.length) {
       return;
     }
     if (this.diagram._id) {
       this.apiService.editDiagram(this.diagram).subscribe(
         diagram => {
-          this.diagram.shapes = diagram.shapes;
+          this.storeService.setDiagram(diagram);
           this.notify('Your diagram has been successfully edited!');
         },
         error =>  this.notify(error.message)
@@ -51,14 +48,14 @@ export class AppComponent {
     } else {
       this.apiService.saveDiagram(this.diagram.shapes).subscribe(
         diagram => {
-          this.diagram._id = diagram._id;
-          this.notify('Your diagram has been successfully saved!');
+            this.storeService.setDiagram(diagram);
+            this.notify('Your diagram has been successfully saved!');
         },
         error => this.notify(error.message)
       );
     }
   }
-  publish() {
+  publish(): void {
     if (!this.diagram.shapes.length || !this.diagram._id) {
       return;
     }
@@ -70,5 +67,14 @@ export class AppComponent {
       },
       error => this.notify(error.message)
     );
+  }
+  notify(message: string): void {
+      this.snackBar.open(message, null, { duration: 5000 });
+  }
+  btnActionText(diagram: Diagram): string {
+      return diagram._id ? 'Edit' : 'Save';
+  }
+  btnPublishText(diagram: Diagram): string {
+      return diagram.published ? 'Unpublished' : 'Published';
   }
 }
