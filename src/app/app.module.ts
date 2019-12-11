@@ -9,15 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { ApiService } from './services/api.service';
 import { ApiInterceptorService } from './services/api-interceptor.service';
 
-import { AppComponent } from './app.component';
-
-import { DrawerComponent } from './containers/drawer/drawer.component';
-
-import { ViewerComponent } from './containers/viewer/viewer.component';
 import { ViewerResolve } from './containers/viewer/viewer.resolve';
 
+import { DrawerComponent } from './containers/drawer/drawer.component';
+import { ViewerComponent } from './containers/viewer/viewer.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { ShapeComponent } from './components/shape/shape.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
